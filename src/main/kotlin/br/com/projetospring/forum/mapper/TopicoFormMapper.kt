@@ -17,6 +17,7 @@ class TopicoFormMapper(
             mensagem = t.mensagem,
             curso = cursoService.buscarPorID(t.idCurso),
             autor = usuarioService.buscaPorId(t.idAutor)
+
         )
     }
 

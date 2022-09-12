@@ -12,14 +12,16 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException.NotFound
+import java.time.LocalDate
 import java.util.stream.Collectors
 import kotlin.collections.ArrayList
 
 @Service
-class TopicoService( private val repository: TopicoRepository,
-                     private val topicoViewMapper: TopicoViewMapper,
-                     private val topicoFormMapper: TopicoFormMapper,
-                     private val notFoundMessage: String = "Topico não encontrado"
+class TopicoService(
+    private val repository: TopicoRepository,
+    private val topicoViewMapper: TopicoViewMapper,
+    private val topicoFormMapper: TopicoFormMapper,
+    private val notFoundMessage: String = "Topico não encontrado"
 ) {
 
     fun listar(
@@ -53,6 +55,7 @@ class TopicoService( private val repository: TopicoRepository,
             .orElseThrow{NotFoundException(notFoundMessage)}
         topico.titulo = form.titulo
         topico.mensagem = form.mensagem
+        topico.dataAlteracao = LocalDate.now()
         return topicoViewMapper.map(topico)
     }
 
